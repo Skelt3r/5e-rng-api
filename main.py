@@ -1,4 +1,6 @@
-from func.dice import *
+from data.messages import invalid_input, welcome
+from func.dice import interpret_roll, roll_stats
+from func.generators import random_character_gen
 from flask import Flask
 from flask_restful import Api, Resource
 
@@ -25,9 +27,18 @@ class Roll(Resource):
             return invalid_input(), 400
 
 
+class Generate(Resource):
+    def get(self, input):
+        if input == 'pc':
+            return random_character_gen()
+        else:
+            return invalid_input(), 400
+
+
 # Add resources to API
-api.add_resource(Welcome, '/', '/roll', '/help')
+api.add_resource(Welcome, '/', '/help', '/generate', '/roll')
 api.add_resource(Roll, '/roll/<string:input>')
+api.add_resource(Generate, '/generate/<string:input>')
 
 if __name__ == '__main__':
     app.run()
