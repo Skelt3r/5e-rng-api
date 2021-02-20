@@ -9,7 +9,6 @@ class Framework:
             'subrace': '',
             'class': '',
             'background': {
-                'title': '',
                 'skill_prof_1': '',
                 'skill_prof_2': '',
                 'tool_prof': '',
