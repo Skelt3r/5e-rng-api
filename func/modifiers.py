@@ -400,8 +400,6 @@ def assign_bg_mods(fw):
     temp_tools = deepcopy(ed.tools)
     temp_langs = deepcopy(cd.languages)
 
-    fw.character['bio']['background']['title'] = 'random'
-
     # Remove existing skill proficiencies
     for skill in temp_skills:
         if fw.skills[skill]['proficient'] == True:
