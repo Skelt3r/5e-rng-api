@@ -11,12 +11,13 @@ def welcome():
 
 
 def invalid_input():
-    return {'error': 'invalid-request',
-            'message': 'Bad request! Please enter a valid command.',
+    return {'error': 'invalid-input',
+            'message': 'Bad request! Please enter a valid endpoint.',
             'examples': ['/roll/1d20',
                          '/roll/2d6',
                          '/roll/4d4+5',
-                         '/roll/stats'],
+                         '/roll/stats',
+                         '/generate/pc'],
             'status': 400}
 
 
