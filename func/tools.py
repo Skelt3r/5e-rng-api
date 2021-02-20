@@ -6,7 +6,6 @@ from data.spells import spell_list
 from sys import exit
 
 import data.equipment as ed, os, sys
-import requests as r
 
 
 # This function removes duplicates that are inherent because of race/class/background features
