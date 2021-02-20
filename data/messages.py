@@ -1,4 +1,4 @@
-
+# Default welcome message
 def welcome():
     return {'message': 'Welcome to the 5e RNG API! See the available functions below.',
             'functions': {
@@ -10,6 +10,7 @@ def welcome():
                     '/roll/stats': {'description': 'Randomly generate a set of 5e ability scores.'}}}}
 
 
+# Error message for invalid input
 def invalid_input():
     return {'error': 'invalid-input',
             'message': 'Bad request! Please enter a valid endpoint.',
@@ -21,12 +22,14 @@ def invalid_input():
             'status': 400}
 
 
+# Error message for an invalid roll count
 def invalid_roll_count():
     return {'error': 'invalid-roll-count',
             'message': 'The endpoint accepts a minimum of 1 roll or a maximum of 100 rolls.',
             'status': 400}
 
 
+# Error message for an invalid dice type
 def invalid_dice_type():
     return {'error': 'invalid-dice-type',
             'message': 'The endpoint accepts a range of d2-d100 dice types.',
