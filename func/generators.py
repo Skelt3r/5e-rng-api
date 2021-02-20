@@ -4,7 +4,7 @@ from data.framework import Framework
 from json import dumps
 from random import choice
 from sys import exit
-from .tools import choose_alignment, generate_name, remove_inherent_dupes, sort_all
+from .tools import choose_alignment, remove_inherent_dupes, sort_all
                     
 import func.modifiers as m
 
@@ -22,7 +22,7 @@ def compile_character(fw):
 
 
 # Check for user input, otherwise apply random generation
-def read_user_input(fw, race, cls, gender, alignment, name):
+def read_user_input(fw, race, cls, gender, alignment):
     if race != None:
         fw.character['bio']['race'] = race
     else:
@@ -42,11 +42,6 @@ def read_user_input(fw, race, cls, gender, alignment, name):
         fw.character['bio']['alignment'] = alignment
     else:
         fw.character['bio']['alignment'] = choose_alignment(fw.character['bio']['race'])
-
-    if name != None:
-        fw.character['bio']['name'] = name
-    else:
-        fw.character['bio']['name'] = generate_name(fw.character['bio']['race'], fw.character['bio']['gender'])
 
 
 # Ensure that user input is valid, otherwise return an error
@@ -98,7 +93,6 @@ def random_character_gen():
     fw.character['bio']['class'] = choice(d.classes)
     fw.character['bio']['gender'] = choice(['male', 'female'])
     fw.character['bio']['alignment'] = choose_alignment(fw.character['bio']['race'])
-    fw.character['bio']['name'] = generate_name(fw.character['bio']['race'], fw.character['bio']['gender'])
 
     m.assign_stats(fw)
     m.assign_race_mods(fw)
@@ -139,7 +133,7 @@ def custom_character_gen(race=None,
     if validate_user_input(race, cls, gender, alignment) == True:
         fw = Framework()
 
-        read_user_input(fw, race, cls, gender, alignment, name)
+        read_user_input(fw, race, cls, gender, alignment)
 
         m.assign_stats(fw)
         m.assign_race_mods(fw)
