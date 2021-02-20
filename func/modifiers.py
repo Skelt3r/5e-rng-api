@@ -135,8 +135,6 @@ def assign_race_mods(fw):
         else:
             fw.character['stats']['resistances'].append('poison')
             fw.spells['innate'].append('breath weapon (poison)')
-        
-        fw.character['bio']['skin'] = ancestry
 
     elif race == 'dwarf':
         fw.abilities['constitution']['score'] += 2
