@@ -12,12 +12,15 @@ import func.modifiers as m
 # Returns a JSON serializable character object
 def compile_character(fw):
     return {
-        'character': fw.character,
-        'abilities': fw.abilities,
-        'skills': fw.skills,
-        'proficiencies': fw.proficiencies,
-        'spells': fw.spells,
-        'inventory': fw.inventory
+        'character': {
+            'bio': fw.character['bio'],
+            'stats': fw.character['stats'],
+            'abilities': fw.abilities,
+            'skills': fw.skills,
+            'proficiencies': fw.proficiencies,
+            'spells': fw.spells,
+            'inventory': fw.inventory
+        }
     }
 
 
