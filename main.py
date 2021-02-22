@@ -12,7 +12,7 @@ api = Api(app)
 # Default resource to display if no endpoint is passed
 class Welcome(Resource):
     def get(self):
-        return welcome()
+        return welcome
 
 
 # Resource for using the /roll command
@@ -24,7 +24,7 @@ class Roll(Resource):
             else:
                 return interpret_roll(input)
         except:
-            return invalid_input(), 400
+            return invalid_input, 400
 
 
 class Generate(Resource):
@@ -32,7 +32,7 @@ class Generate(Resource):
         if input == 'pc':
             return random_character_gen()
         else:
-            return invalid_input(), 400
+            return invalid_input, 400
 
 
 # Add resources to API
