@@ -21,7 +21,7 @@ armor = {
 }
 
 # Dict of weapon names grouped by type/class
-weapon_list = {
+weapons = {
     'melee': {
         'simple': [
             'club',
