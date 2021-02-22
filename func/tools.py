@@ -136,7 +136,7 @@ def select_instruments(fw, num_inst):
 
 # Remove already owned weapons from temp list
 def splice_weapons(fw):
-    temp_weapons = deepcopy(ed.weapon_list)
+    temp_weapons = deepcopy(ed.weapons)
     simple_melee_weapons = temp_weapons['melee']['simple']
     martial_melee_weapons = temp_weapons['melee']['martial']
     simple_ranged_weapons = temp_weapons['ranged']['simple']
