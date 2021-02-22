@@ -1,4 +1,4 @@
-from data.messages import *
+from data.messages import invalid_input, invalid_dice_type, invalid_roll_count
 from random import randint
 
 
@@ -8,7 +8,7 @@ def roll_dice(num_sides=20, num_rolls=1):
     elif num_rolls > 1:
         return [randint(1, num_sides) for _roll in range(num_rolls)]
     else:
-        return invalid_input(), 400
+        return invalid_input, 400
 
 
 def roll_stats(json=False):
@@ -44,9 +44,9 @@ def interpret_roll(input):
     result = roll_dice(num_sides, num_rolls)
 
     if num_rolls > 100 or num_rolls < 1:
-        return invalid_roll_count(), 400
+        return invalid_roll_count, 400
     elif num_sides > 100 or num_sides < 2:
-        return invalid_dice_type(), 400
+        return invalid_dice_type, 400
     elif num_rolls == 1 and mod == 0:
         return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}'},
                 'result': result}
@@ -63,4 +63,4 @@ def interpret_roll(input):
                 'results': result,
                 'total': sum(result) + mod}
     else:
-        return invalid_input(), 400
+        return invalid_input, 400
