@@ -443,8 +443,8 @@ def assign_bg_mods(fw):
 # Assign equipment based on character class
 def assign_equipment(fw):
     cls = fw.character['bio']['class']
-    temp_weapons_melee_simple = deepcopy(ed.weapon_list['melee']['simple'])
-    temp_weapons_ranged_simple = deepcopy(ed.weapon_list['ranged']['simple'])
+    temp_weapons_melee_simple = deepcopy(ed.weapons['melee']['simple'])
+    temp_weapons_ranged_simple = deepcopy(ed.weapons['ranged']['simple'])
 
     if cls == 'barbarian':
         x = choice([1, 2])
@@ -455,7 +455,7 @@ def assign_equipment(fw):
             temp_weapons_melee_simple.remove('handaxe')
             t.select_weapons(fw, 'melee', 'simple')
         
-        fw.inventory['weapons'].append(choice(['greataxe', choice(ed.weapon_list['melee']['martial'])]))
+        fw.inventory['weapons'].append(choice(['greataxe', choice(ed.weapons['melee']['martial'])]))
         fw.inventory['weapons'].append('four javelins')
         t.unpack_gear(fw, 'explorer')
 
@@ -480,7 +480,7 @@ def assign_equipment(fw):
         else:
             t.select_weapons(fw, 'random', 'simple')
         
-        fw.inventory['weapons'].append(choice(['scimitar', choice(ed.weapon_list['melee']['simple'])]))
+        fw.inventory['weapons'].append(choice(['scimitar', choice(ed.weapons['melee']['simple'])]))
         fw.inventory['armor'].append('leather')
         fw.inventory['misc'].append('druidic focus')
         t.unpack_gear(fw, 'explorer')
