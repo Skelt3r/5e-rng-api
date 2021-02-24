@@ -1,11 +1,9 @@
 from copy import deepcopy
-from data.core import Data as cd
+from data.core import CoreData as cd
+from data.equipment import EquipmentData as ed
+from data.spells import SpellData as sd
 from math import floor
 from random import choice, randint
-from data.spells import spell_list
-from sys import exit
-
-import data.equipment as ed, os, sys
 
 
 # This function removes duplicates that are inherent because of race/class/background features
@@ -241,7 +239,7 @@ def select_profs(fw, profs, num_profs):
 # Remove all known spells from the parent list
 def splice_spells(fw, spell_level):
     cls = fw.character['bio']['class']
-    temp_spells = deepcopy(spell_list[cls][spell_level])
+    temp_spells = deepcopy(sd.spell_list[cls][spell_level])
 
     for spell in fw.spells[spell_level]:
         if spell in temp_spells:
