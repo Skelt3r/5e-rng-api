@@ -1,11 +1,10 @@
-  
-# Default welcome message
+  # Default welcome message
 welcome = {
     'message': 'Welcome to the 5e RNG API! See the available functions below.',
     'functions': {
         'GET': {
             '/roll/XdX': {
-                'description': 'Use the following syntax for rolling dice.',
+                'description': 'Roll any number of any type of dice. See the syntax examples below.',
                 'examples': [
                     '/roll/1d20',
                     '/roll/2d6+5',
@@ -13,10 +12,10 @@ welcome = {
                 ]
             },
             '/roll/stats': {
-                'description': 'Randomly generate a set of 5e ability scores.'
+                'description': 'Randomly generate a set of 5e DND ability scores.'
             },
             '/generate/pc': {
-                'description': 'Randomly generate a 5e DND character.'
+                'description': 'Randomly generate a 5e DND player character.'
             }
         }
     }
@@ -30,7 +29,7 @@ invalid_input = {
         '/roll/1d20',
         '/roll/2d6',
         '/roll/4d4+5',
-        '/roll/stats',
+        '/generate/stats',
         '/generate/pc'
     ],
     'status': 400
