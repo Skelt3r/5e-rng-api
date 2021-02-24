@@ -9,27 +9,27 @@ app = Flask(__name__)
 api = Api(app)
 
 
-# Default resource to display if no endpoint is passed
+# Return a default response if no endpoint is passed
 class Welcome(Resource):
     def get(self):
         return welcome
 
 
-# Resource for using the /roll command
+# Define the behavior for the /roll endpoint
 class Roll(Resource):
     def get(self, input):
         try:
-            if input == 'stats':
-                return roll_stats(json=True)
-            else:
-                return interpret_roll(input)
+            return interpret_roll(input)
         except:
             return invalid_input, 400
 
 
+# Define the behavior for the /generate endpoint
 class Generate(Resource):
     def get(self, input):
-        if input == 'pc':
+        if input == 'stats':
+            return roll_stats(json=True)
+        elif input == 'pc':
             return random_character_gen()
         else:
             return invalid_input, 400
