@@ -1,12 +1,11 @@
 from copy import deepcopy
-from data.core import Data as cd
+from data.core import CoreData as cd
+from data.equipment import EquipmentData as ed
+from data.spells import SpellData as sd
 from .dice import roll_dice, roll_stats
 from math import floor
 from random import choice, randint, randrange
-from data.spells import spell_list
-from sys import exit
 
-import data.equipment as ed
 import func.tools as t
 
 # Assign stats based on priority by class
@@ -222,7 +221,7 @@ def assign_subrace_mods(fw):
             fw.abilities['intelligence']['score'] += 1
             fw.character['bio']['traits'].append('elf weapon training')
             fw.proficiencies['weapons'].extend(['longsword', 'shortsword', 'shortbow', 'longbow'])
-            fw.spells['cantrips'].append(choice(spell_list['wizard']['cantrips']))
+            fw.spells['cantrips'].append(choice(sd.spell_list['wizard']['cantrips']))
 
         # gnome
         elif subrace == 'rock gnome':
@@ -379,7 +378,7 @@ def assign_class_mods(fw):
         t.splice_profs(fw, profs)
         t.select_profs(fw, profs, 2)
         fw.spells['spell_slots']['1st_level'] = 1
-        spell_list['warlock']['1st_level'].extend(['burning hands', 'command'])
+        sd.spell_list['warlock']['1st_level'].extend(['burning hands', 'command'])
     elif cls == 'wizard':
         fw.character['stats']['hit_dice'] = 'd6'
         fw.character['bio']['traits'].extend(['spellcasting', 'arcane recovery'])
@@ -625,10 +624,10 @@ def assign_spells(fw):
         t.select_spells(fw, 4, '1st_level')
     elif cls == 'cleric':
         t.select_spells(fw, 3, 'cantrips')
-        fw.spells['1st_level'] = spell_list[cls]['1st_level']
+        fw.spells['1st_level'] = sd.spell_list[cls]['1st_level']
     elif cls == 'druid':
         t.select_spells(fw, 2, 'cantrips')
-        fw.spells['1st_level'] = spell_list[cls]['1st_level']
+        fw.spells['1st_level'] = sd.spell_list[cls]['1st_level']
     elif cls == 'sorcerer':
         t.select_spells(fw, 4, 'cantrips')
         t.select_spells(fw, 2, '1st_level')
