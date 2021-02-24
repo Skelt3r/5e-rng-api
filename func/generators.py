@@ -1,9 +1,6 @@
-from copy import copy
-from data.core import Data as d
+from data.core import CoreData as d
 from data.framework import Framework
-from json import dumps
 from random import choice
-from sys import exit
 from .tools import choose_alignment, remove_inherent_dupes, sort_all
                     
 import func.modifiers as m
