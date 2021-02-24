@@ -1,7 +1,7 @@
 from data.messages import invalid_input, invalid_dice_type, invalid_roll_count
 from random import randint
 
-
+# Roll any number of any type of dice
 def roll_dice(num_sides=20, num_rolls=1):
     if num_rolls == 1:
         return randint(1, num_sides)
@@ -11,7 +11,9 @@ def roll_dice(num_sides=20, num_rolls=1):
         return invalid_input, 400
 
 
+# Roll a set of ability scores
 def roll_stats(json=False):
+    # Roll 4d6, drop the lowest roll, and return the remaining sum
     def stat_gen():
         rolls = sorted(roll_dice(num_sides=6, num_rolls=4))
         rolls.pop(0)
@@ -25,6 +27,7 @@ def roll_stats(json=False):
         return stats
 
 
+# Construct a response based on the given input
 def interpret_roll(input):
     # Dissect the command into useful parts
     nums = input.split('d')
