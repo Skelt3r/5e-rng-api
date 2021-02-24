@@ -1,5 +1,5 @@
 # Class for storing and retrieving core data
-class Data():
+class CoreData():
     # List of races
     races = [
         'dragonborn',
@@ -10,7 +10,7 @@ class Data():
         'half-orc',
         'halfling',
         'human',
-        'tiefling',
+        'tiefling'
     ]
 
     # Dict of subraces
@@ -31,7 +31,7 @@ class Data():
         ],
         'half-orc': [],
         'human': [],
-        'tiefling': [],
+        'tiefling': []
     }
 
     # List of classes
@@ -67,7 +67,7 @@ class Data():
         'orc',
         'primordial',
         'sylvan',
-        'undercommon',
+        'undercommon'
     ]
 
     # Dict of alignments
@@ -75,17 +75,17 @@ class Data():
         'lawful': [
             'lawful good',
             'lawful neutral',
-            'lawful evil',
+            'lawful evil'
         ],
         'chaotic': [
             'chaotic good',
             'chaotic neutral',
-            'chaotic evil',
+            'chaotic evil'
         ],
         'good': [
             'lawful good',
             'chaotic good',
-            'neutral good',
+            'neutral good'
         ],
         'evil': [
             'lawful evil',
