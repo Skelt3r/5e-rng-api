@@ -286,3 +286,19 @@ class CoreData():
         'protection',
         'two-weapon fighting'
     ]
+
+    enemy_types = [
+        'aberrations',
+        'beasts',
+        'celestials',
+        'constructs',
+        'dragons',
+        'elementals',
+        'fey',
+        'fiends',
+        'giants',
+        'monstrosities',
+        'oozes',
+        'plants',
+        'undead'
+    ]
