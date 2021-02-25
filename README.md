@@ -9,6 +9,7 @@ The API currently supports the following GET requests:
 
 Planned features:
 - Implement descriptions for features/traits, spells, items, etc.
+- Generate characters beyond level 1
 - Custom character generation
 - NPC generation
 - ???
