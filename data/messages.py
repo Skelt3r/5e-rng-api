@@ -11,7 +11,7 @@ welcome = {
                     '/roll/4d4-1'
                 ]
             },
-            '/roll/stats': {
+            '/generate/stats': {
                 'description': 'Randomly generate a set of 5e DND ability scores.'
             },
             '/generate/pc': {
