@@ -8,6 +8,7 @@ The API currently supports the following GET requests:
 - `/generate/pc` - Randomly generate a 5e DND player character.
 
 Planned features:
+- Implement descriptions for features/traits, spells, items, etc.
 - Custom character generation
 - NPC generation
 - ???
