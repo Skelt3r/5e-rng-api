@@ -1,4 +1,7 @@
 # 5e-rng-api
+
+Base URL: https://rng-api.herokuapp.com/
+
 The API currently supports the following GET requests:  
 - `/roll/XdX` - Roll the dice! This endpoint currently supports a range of (1-100)d(2-100).
 - `/generate/stats` - Randomly generate a set of 5e DND ability scores.
