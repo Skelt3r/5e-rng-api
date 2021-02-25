@@ -13,6 +13,8 @@ Planned features:
 - NPC generation
 - ???
 
+More detailed info coming soon...
+
 ## If you have any cool ideas, feature suggestions, or bugs to report, feel free to open a ticket or make your own pull request!
 
 This project was heavily inspired by the [5e DND API](https://www.dnd5eapi.co/). Check them out!
