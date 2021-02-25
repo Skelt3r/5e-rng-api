@@ -81,26 +81,6 @@ def choose_alignment(race):
         return 'pick_alignment: invalid race input'
 
 
-# Used with the Ranger only
-def assign_favored_enemy():
-    enemy_types = [
-        'aberrations',
-        'beasts',
-        'celestials',
-        'constructs',
-        'dragons',
-        'elementals',
-        'fey',
-        'fiends',
-        'giants',
-        'monstrosities',
-        'oozes',
-        'plants',
-        'undead'
-    ]
-    return choice(enemy_types)
-
-
 # Used to generate a character's height and weight
 def body_gen(fw, base_height, base_weight, height_mod, weight_mod):
     final_height = base_height + height_mod
