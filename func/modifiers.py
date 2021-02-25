@@ -244,9 +244,9 @@ def assign_class_mods(fw):
     temp_tools = deepcopy(ed.tools)
 
     if cls == 'bard':
-        profs = cd.skill_prof_dict['all'].copy()
+        profs = deepcopy(cd.skill_prof_dict['all'])
     else:
-        profs = cd.skill_prof_dict[cls].copy()
+        profs = deepcopy(cd.skill_prof_dict[cls])
 
     if cls == 'barbarian':
         fw.character['stats']['hit_dice'] = 'd12'
@@ -330,7 +330,7 @@ def assign_class_mods(fw):
         t.select_profs(fw, profs, 2)
     elif cls == 'ranger':
         fw.character['stats']['hit_dice'] = 'd10'
-        fw.character['bio']['traits'].extend([f'favored enemy ({t.assign_favored_enemy()})', 'natural explorer'])
+        fw.character['bio']['traits'].extend([f'favored enemy ({choice(cd.enemy_types)})', 'natural explorer'])
         fw.proficiencies['armor'].extend(['light armor', 'medium armor', 'shields'])
         fw.proficiencies['weapons'].extend(['simple weapons', 'martial weapons'])
         fw.abilities['strength']['saving_throw']['proficient'] = True
