@@ -14,6 +14,8 @@ Planned features:
 
 ## If you have any cool ideas, feature suggestions, or bugs to report, feel free to open a ticket or make your own pull request!
 
+This project was heavily inspired by the [5e DND API](https://www.dnd5eapi.co/). Check them out!
+
 This project is licensed under the terms of the MIT license.
 
 The random character generation functionality of this project incorporates material from the [System Reference Document 5.1](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf), which is released under the terms of the [Open Gaming License Version 1.0a](https://www.wizards.com/default.asp?x=d20/oglfaq/20040123f).
