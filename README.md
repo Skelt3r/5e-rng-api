@@ -9,11 +9,7 @@ Planned features:
 - NPC generation
 - ???
 
----
-
 ## If you have any cool ideas, feature suggestions, or bugs to report, feel free to open a ticket or make your own pull request!
-
----
 
 This project is licensed under the terms of the MIT license.
 
