@@ -18,7 +18,7 @@ More detailed info coming soon...
 
 ## If you have any cool ideas, feature suggestions, or bugs to report, feel free to open a ticket or make your own pull request!
 
-This project was heavily inspired by the [5e DND API](https://www.dnd5eapi.co/). Check them out!
+This project was heavily inspired by the [DND 5e API](https://www.dnd5eapi.co/). Check them out!
 
 This project is licensed under the terms of the MIT license.
 
