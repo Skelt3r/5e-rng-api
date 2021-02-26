@@ -1,6 +1,6 @@
-# 5e-rng-api
+## 5th Edition Pseudorandom Number Generator Application Programming Interface
 
-Base URL: https://rng-api.herokuapp.com/
+Base URL: https://prng-api.herokuapp.com/
 
 The API currently supports the following GET requests:  
 - `/roll/XdX` - Roll the dice! This endpoint currently supports a range of (1-100)d(2-100).
@@ -10,7 +10,7 @@ The API currently supports the following GET requests:
 Planned features:
 - Implement descriptions for features/traits, spells, items, etc.
 - Generate characters beyond level 1
-- Custom character generation
+- Custom character generation with the option to define certain parameters
 - NPC generation
 - ???
 
