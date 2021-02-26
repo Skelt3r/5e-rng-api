@@ -1,4 +1,4 @@
-## 5th Edition Pseudorandom Number Generator Application Programming Interface
+## 5e Pseudorandom Number Generator API
 
 Base URL: https://prng-api.herokuapp.com/
 
