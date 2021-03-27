@@ -1,4 +1,4 @@
-  # Default welcome message
+# Default welcome message
 welcome = {
     'message': 'Welcome to the 5e RNG API! See the available functions below.',
     'functions': {
