@@ -1,4 +1,4 @@
-from data.messages import invalid_input, invalid_dice_type, invalid_roll_count
+from data.messages import *
 from random import randint
 
 # Roll any number of any type of dice
@@ -46,24 +46,13 @@ def interpret_roll(input):
 
     result = roll_dice(num_sides, num_rolls)
 
-    if num_rolls > 100 or num_rolls < 1:
-        return invalid_roll_count, 400
-    elif num_sides > 100 or num_sides < 2:
-        return invalid_dice_type, 400
-    elif num_rolls == 1 and mod == 0:
-        return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}'},
-                'result': result}
-    elif num_rolls == 1 and mod != 0:
-        return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}', 'mod': mod},
-                'result': result,
-                'total': result + mod}
-    elif num_rolls > 1 and mod == 0:
-        return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}'},
-                'results': result,
-                'total': sum(result)}
-    elif num_rolls > 1 and mod != 0:
-        return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}', 'mod': mod},
-                'results': result,
-                'total': sum(result) + mod}
-    else:
+    try:
+        if num_rolls > 100 or num_rolls < 1:
+            return invalid_roll_count, 400
+        elif num_sides > 100 or num_sides < 2:
+            return invalid_dice_type, 400
+        else:
+            return format_dice_roll(input, num_rolls, num_sides, result, mod)
+
+    except:
         return invalid_input, 400
