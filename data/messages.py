@@ -48,3 +48,23 @@ invalid_dice_type = {
     'message': 'The endpoint accepts a range of d2-d100 dice types.',
     'status': 400
 }
+
+# Format a valid dice roller response, else raise an error
+def format_dice_roll(input, num_rolls, num_sides, result, mod):
+    if num_rolls == 1 and mod == 0:
+        return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}'},
+                'result': result}
+    elif num_rolls == 1 and mod != 0:
+        return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}', 'mod': mod},
+                'result': result,
+                'total': result + mod}
+    elif num_rolls > 1 and mod == 0:
+        return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}'},
+                'results': result,
+                'total': sum(result)}
+    elif num_rolls > 1 and mod != 0:
+        return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}', 'mod': mod},
+                'results': result,
+                'total': sum(result) + mod}
+    else:
+        raise ValueError
