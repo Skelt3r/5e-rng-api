@@ -8,7 +8,7 @@ def roll_dice(num_sides=20, num_rolls=1):
     elif num_rolls > 1:
         return [randint(1, num_sides) for _roll in range(num_rolls)]
     else:
-        return invalid_input, 400
+        raise ValueError
 
 
 # Roll a set of ability scores
