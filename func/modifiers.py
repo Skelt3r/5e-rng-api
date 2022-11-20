@@ -115,8 +115,8 @@ def assign_race_mods(framework):
             framework.abilities['charisma']['score'] += 1
             framework.character['stats']['speed'] += 30
             framework.character['bio']['traits'].extend(['breath weapon',
-                                                        'damage resistance',
-                                                        f'draconic ancestry ({ancestry} dragon)'])
+                                                         'damage resistance',
+                                                         f'draconic ancestry ({ancestry} dragon)'])
             framework.proficiencies['languages'].extend(['common', 'draconic'])
             if ancestry in ['black', 'copper']:
                 framework.character['stats']['resistances'].append('acid')
@@ -138,9 +138,9 @@ def assign_race_mods(framework):
             framework.character['stats']['speed'] += 25
             framework.character['stats']['resistances'].append('poison')
             framework.character['bio']['traits'].extend(['darkvision',
-                                                        'dwarven resilience',
-                                                        'dwarven combat training',
-                                                        'stonecunning'])
+                                                         'dwarven resilience',
+                                                         'dwarven combat training',
+                                                         'stonecunning'])
             framework.proficiencies['languages'].extend(['common', 'dwarvish'])
             framework.proficiencies['weapons'].extend(['battleaxe', 'handaxe', 'light hammer', 'warhammer'])
             tool_profs = ["smith's tools", "brewer's supplies", "mason's tools"]
