@@ -1,4 +1,4 @@
-from data.core import CoreData as d
+from data.core import CoreData
 from data.framework import Framework
 from random import choice
 from .tools import choose_alignment, remove_inherent_dupes, sort_all
@@ -23,9 +23,10 @@ def compile_character(framework):
 
 def random_character_gen():
     """Generate a random character"""
+    data = CoreData()
     framework = Framework()
-    framework.character['bio']['race'] = choice(d.races)
-    framework.character['bio']['class'] = choice(d.classes)
+    framework.character['bio']['race'] = choice(data.races)
+    framework.character['bio']['class'] = choice(data.classes)
     framework.character['bio']['gender'] = choice(['male', 'female'])
     framework.character['bio']['alignment'] = choose_alignment(framework.character['bio']['race'])
 

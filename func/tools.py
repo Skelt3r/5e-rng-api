@@ -1,9 +1,14 @@
-from copy import deepcopy
-from data.core import CoreData as cd
-from data.equipment import EquipmentData as ed
-from data.spells import SpellData as sd
+from copy import copy
+from data.core import CoreData
+from data.equipment import EquipmentData
+from data.spells import SpellData
 from math import floor
 from random import choice, randint
+
+
+core_data = CoreData()
+eq_data = EquipmentData()
+spell_data = SpellData()
 
 
 def remove_inherent_dupes(framework):
@@ -16,59 +21,59 @@ def remove_inherent_dupes(framework):
     framework.inventory['misc'] = list(dict.fromkeys(framework.inventory['misc']))
 
 
-# Choose the character's alignment
 def choose_alignment(race):
+    """Randomly choose the character's alignment based on race"""
     chance = randint(1, 100)
 
     match race:
         case 'dragonborn':
             if chance <= 75:
-                return choice(cd.alignments['good'])
+                return choice(core_data.alignments['good'])
             else:
-                return choice(cd.alignments['evil'])
+                return choice(core_data.alignments['evil'])
         case 'dwarf':
             if chance <= 80:
                 return 'lawful good'
             elif chance > 80 and chance <= 90:
-                return choice(cd.alignments['lawful'])
+                return choice(core_data.alignments['lawful'])
             else:
-                return choice(cd.alignments['all'])
+                return choice(core_data.alignments['all'])
         case 'elf':
             if chance <= 90:
                 return choice(['chaotic good', 'chaotic neutral'])
             else:
-                return choice(cd.alignments['all'])
+                return choice(core_data.alignments['all'])
         case 'gnome':
             if chance <= 80:
-                return choice(cd.alignments['good'])
+                return choice(core_data.alignments['good'])
             else:
-                return choice(cd.alignments['all'])
+                return choice(core_data.alignments['all'])
         case 'half-elf':
             if chance <= 90:
-                return choice(cd.alignments['chaotic'])
+                return choice(core_data.alignments['chaotic'])
             else:
-                return choice(cd.alignments['all'])
+                return choice(core_data.alignments['all'])
         case 'half-orc':
             if chance <= 80:
-                return choice(cd.alignments['chaotic'])
+                return choice(core_data.alignments['chaotic'])
             elif chance > 80 and chance <= 90:
-                return choice(cd.alignments['all'])
+                return choice(core_data.alignments['all'])
             else:
                 return 'chaotic evil'
         case 'halfling':
             if chance <= 90:
                 return 'lawful good'
             else:
-                return choice(cd.alignments['all'])
+                return choice(core_data.alignments['all'])
         case 'human':
-            return choice(cd.alignments['all'])
+            return choice(core_data.alignments['all'])
         case 'tiefling':
             if chance <= 50:
-                return choice(cd.alignments['chaotic'])
+                return choice(core_data.alignments['chaotic'])
             elif chance > 50 and chance <= 80:
-                return choice(cd.alignments['evil'])
+                return choice(core_data.alignments['evil'])
             else:
-                return choice(cd.alignments['all'])
+                return choice(core_data.alignments['all'])
         case _:
             return 'pick_alignment: invalid race input'
 
@@ -92,7 +97,7 @@ def randomize_stats(framework, stats, temp_abils, start, stop):
 def select_instruments(framework, num_inst):
     """Assign instrument proficiencies"""
     count = num_inst
-    temp_instruments = deepcopy(ed.instruments)
+    temp_instruments = copy(eq_data.instruments)
     while count > 0:
         inst = choice(temp_instruments)
         if inst in framework.proficiencies['instruments']:
@@ -105,7 +110,7 @@ def select_instruments(framework, num_inst):
 
 def splice_weapons(framework):
     """Remove already owned weapons from temp list"""
-    temp_weapons = deepcopy(ed.weapons)
+    temp_weapons = copy(eq_data.weapons)
     simple_melee_weapons = temp_weapons['melee']['simple']
     martial_melee_weapons = temp_weapons['melee']['martial']
     simple_ranged_weapons = temp_weapons['ranged']['simple']
@@ -170,7 +175,7 @@ def sort_all(framework):
 
 def splice_languages(framework):
     """Remove all known languages from the parent list"""
-    temp_langs = deepcopy(cd.languages)
+    temp_langs = copy(core_data.languages)
     for known_lang in framework.proficiencies['languages']:
         for lang in temp_langs:
             if known_lang == lang:
@@ -206,7 +211,7 @@ def select_profs(framework, profs, num_profs):
 def splice_spells(framework, spell_level):
     """Remove all known spells from the parent list"""
     class_ = framework.character['bio']['class']
-    temp_spells = deepcopy(sd.spell_list[class_][spell_level])
+    temp_spells = copy(spell_data.spell_list[class_][spell_level])
     for spell in framework.spells[spell_level]:
         if spell in temp_spells:
             temp_spells.remove(spell)
@@ -224,5 +229,5 @@ def select_spells(framework, num_spells, spell_level):
 
 def unpack_gear(framework, pack): 
     """Unpack all of the items in a starting equipment pack and add them to the character's inventory"""
-    for item in ed.equipment_packs[pack]: 
+    for item in eq_data.equipment_packs[pack]: 
         framework.inventory['misc'].append(item)

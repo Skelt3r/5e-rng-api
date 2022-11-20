@@ -1,4 +1,4 @@
-from data.messages import *
+from data.messages import format_dice_roll, invalid_dice_type, invalid_input, invalid_roll_count
 from random import randint
 
 
@@ -33,17 +33,18 @@ def interpret_roll(input):
     num_rolls = int(nums[0])
 
     if nums[1].find('+') != -1:
-        num_sides = int(nums[1].split('+')[0])
-        mod = int(nums[1].split('+')[1])
+        parts = nums[1].split('+')
+        num_sides = int(parts[0])
+        mod = int(parts[1])
     elif nums[1].find('-') != -1:
-        num_sides = int(nums[1].split('-')[0])
-        mod = -int(nums[1].split('-')[1])
+        parts = nums[1].split('-')
+        num_sides = int(parts[0])
+        mod = -int(parts[1])
     else:
         num_sides = int(nums[1])
         mod = 0
 
     result = roll_dice(num_sides, num_rolls)
-
     try:
         if num_rolls > 100 or num_rolls < 1:
             return invalid_roll_count, 400

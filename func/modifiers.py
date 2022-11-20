@@ -1,7 +1,7 @@
-from copy import deepcopy
-from data.core import CoreData as cd
-from data.equipment import EquipmentData as ed
-from data.spells import SpellData as sd
+from copy import copy
+from data.core import CoreData
+from data.equipment import EquipmentData
+from data.spells import SpellData
 from .dice import roll_dice, roll_stats
 from math import floor
 from random import choice, randint, randrange
@@ -9,11 +9,16 @@ from random import choice, randint, randrange
 import func.tools as t
 
 
+core_data = CoreData()
+eq_data = EquipmentData()
+spell_data = SpellData()
+
+
 def assign_stats(framework):
     """Assign stats based on priority by class"""
     class_ = framework.character['bio']['class']
     stats = roll_stats()
-    temp_abils = deepcopy(cd.ability_list)
+    temp_abils = copy(core_data.ability_list)
 
     match class_:
         case 'barbarian':
@@ -104,13 +109,13 @@ def assign_stats(framework):
 def assign_race_mods(framework):
     """Assign various properties based on race input"""
     race = framework.character['bio']['race']
-    temp_abils = deepcopy(cd.ability_list)
-    temp_langs = deepcopy(cd.languages)
-    temp_skills = deepcopy(cd.skill_list)
+    temp_abils = copy(core_data.ability_list)
+    temp_langs = copy(core_data.languages)
+    temp_skills = copy(core_data.skill_list)
     
     match race:
         case 'dragonborn':
-            ancestry = choice(cd.draconic_ancestries)
+            ancestry = choice(core_data.draconic_ancestries)
             framework.abilities['strength']['score'] += 2
             framework.abilities['charisma']['score'] += 1
             framework.character['stats']['speed'] += 30
@@ -184,7 +189,7 @@ def assign_race_mods(framework):
             framework.proficiencies['languages'].extend(['common', 'orc'])
             framework.skills['intimidation']['proficient'] = True
         case 'human':
-            for ability in cd.ability_list: framework.abilities[ability]['score'] += 1
+            for ability in core_data.ability_list: framework.abilities[ability]['score'] += 1
             framework.character['stats']['speed'] += 30
             temp_langs.remove('common')
             framework.proficiencies['languages'].extend(['common', choice(temp_langs)])
@@ -202,8 +207,8 @@ def assign_race_mods(framework):
 
 def assign_subrace_mods(framework):
     """Assign subrace properties"""
-    if len(cd.subraces[framework.character['bio']['race']]) != 0:
-        subrace = cd.subraces[framework.character['bio']['race']][0]
+    if len(core_data.subraces[framework.character['bio']['race']]) != 0:
+        subrace = core_data.subraces[framework.character['bio']['race']][0]
         framework.character['bio']['subrace'] = subrace
 
         match subrace:
@@ -215,7 +220,7 @@ def assign_subrace_mods(framework):
                 framework.abilities['intelligence']['score'] += 1
                 framework.character['bio']['traits'].append('elf weapon training')
                 framework.proficiencies['weapons'].extend(['longsword', 'shortsword', 'shortbow', 'longbow'])
-                framework.spells['cantrips'].append(choice(sd.spell_list['wizard']['cantrips']))
+                framework.spells['cantrips'].append(choice(spell_data.spell_list['wizard']['cantrips']))
             case 'rock gnome':
                 framework.abilities['constitution']['score'] += 1
                 framework.character['bio']['traits'].extend(["artificer's lore", 'tinker'])
@@ -230,12 +235,12 @@ def assign_subrace_mods(framework):
 def assign_class_mods(framework):
     """Assign various modifiers based on class"""
     class_ = framework.character['bio']['class']
-    temp_tools = deepcopy(ed.tools)
+    temp_tools = copy(eq_data.tools)
 
     if class_ == 'bard':
-        profs = deepcopy(cd.skill_prof_dict['all'])
+        profs = copy(core_data.skill_prof_dict['all'])
     else:
-        profs = deepcopy(cd.skill_prof_dict[class_])
+        profs = copy(core_data.skill_prof_dict[class_])
 
     match class_:
         case 'barbarian':
@@ -285,7 +290,7 @@ def assign_class_mods(framework):
             framework.spells['spell_slots']['1st_level'] = 2
         case 'fighter':
             framework.character['stats']['hit_dice'] = 'd10'
-            framework.character['bio']['traits'].extend([f'fighting style ({choice(cd.fighting_styles)})', 'second wind'])
+            framework.character['bio']['traits'].extend([f'fighting style ({choice(core_data.fighting_styles)})', 'second wind'])
             framework.proficiencies['armor'].extend(['light armor', 'medium armor', 'heavy armor', 'shields'])
             framework.proficiencies['weapons'].extend(['simple weapons', 'martial weapons'])
             framework.abilities['strength']['saving_throw']['proficient'] = True
@@ -311,7 +316,7 @@ def assign_class_mods(framework):
             t.select_profs(framework, profs, 2)
         case 'ranger':
             framework.character['stats']['hit_dice'] = 'd10'
-            framework.character['bio']['traits'].extend([f'favored enemy ({choice(cd.enemy_types)})', 'natural explorer'])
+            framework.character['bio']['traits'].extend([f'favored enemy ({choice(core_data.enemy_types)})', 'natural explorer'])
             framework.proficiencies['armor'].extend(['light armor', 'medium armor', 'shields'])
             framework.proficiencies['weapons'].extend(['simple weapons', 'martial weapons'])
             framework.abilities['strength']['saving_throw']['proficient'] = True
@@ -344,7 +349,7 @@ def assign_class_mods(framework):
             if framework.character['bio']['race'] == 'dragonborn':
                 ancestry = framework.character['bio']['subrace']
             else:
-                ancestry = choice(cd.draconic_ancestries)
+                ancestry = choice(core_data.draconic_ancestries)
                 framework.proficiencies['languages'].append('draconic')
         case 'warlock':
             framework.character['stats']['hit_dice'] = 'd8'
@@ -356,7 +361,7 @@ def assign_class_mods(framework):
             t.splice_profs(framework, profs)
             t.select_profs(framework, profs, 2)
             framework.spells['spell_slots']['1st_level'] = 1
-            sd.spell_list['warlock']['1st_level'].extend(['burning hands', 'command'])
+            spell_data.spell_list['warlock']['1st_level'].extend(['burning hands', 'command'])
         case 'wizard':
             framework.character['stats']['hit_dice'] = 'd6'
             framework.character['bio']['traits'].extend(['spellcasting', 'arcane recovery'])
@@ -372,9 +377,9 @@ def assign_class_mods(framework):
 
 def assign_bg_mods(framework):
     """Assign background mods, this is completely random for SRD compliance"""
-    temp_skills = deepcopy(cd.skill_list)
-    temp_tools = deepcopy(ed.tools)
-    temp_langs = deepcopy(cd.languages)
+    temp_skills = copy(core_data.skill_list)
+    temp_tools = copy(eq_data.tools)
+    temp_langs = copy(core_data.languages)
 
     for skill in temp_skills:
         if framework.skills[skill]['proficient'] == True:
@@ -411,8 +416,8 @@ def assign_bg_mods(framework):
 def assign_equipment(framework):
     """Assign equipment based on character class"""
     class_ = framework.character['bio']['class']
-    temp_weapons_melee_simple = deepcopy(ed.weapons['melee']['simple'])
-    temp_weapons_ranged_simple = deepcopy(ed.weapons['ranged']['simple'])
+    temp_weapons_melee_simple = copy(eq_data.weapons['melee']['simple'])
+    temp_weapons_ranged_simple = copy(eq_data.weapons['ranged']['simple'])
 
     match class_:
         case 'barbarian':
@@ -424,7 +429,7 @@ def assign_equipment(framework):
                 temp_weapons_melee_simple.remove('handaxe')
                 t.select_weapons(framework, 'melee', 'simple')
             
-            framework.inventory['weapons'].append(choice(['greataxe', choice(ed.weapons['melee']['martial'])]))
+            framework.inventory['weapons'].append(choice(['greataxe', choice(eq_data.weapons['melee']['martial'])]))
             framework.inventory['weapons'].append('four javelins')
             t.unpack_gear(framework, 'explorer')
         case 'bard':
@@ -448,7 +453,7 @@ def assign_equipment(framework):
             else:
                 t.select_weapons(framework, 'random', 'simple')
             
-            framework.inventory['weapons'].append(choice(['scimitar', choice(ed.weapons['melee']['simple'])]))
+            framework.inventory['weapons'].append(choice(['scimitar', choice(eq_data.weapons['melee']['simple'])]))
             framework.inventory['armor'].append('leather')
             framework.inventory['misc'].append('druidic focus')
             t.unpack_gear(framework, 'explorer')
@@ -584,10 +589,10 @@ def assign_spells(framework):
             t.select_spells(framework, 4, '1st_level')
         case 'cleric':
             t.select_spells(framework, 3, 'cantrips')
-            framework.spells['1st_level'] = sd.spell_list[class_]['1st_level']
+            framework.spells['1st_level'] = spell_data.spell_list[class_]['1st_level']
         case 'druid':
             t.select_spells(framework, 2, 'cantrips')
-            framework.spells['1st_level'] = sd.spell_list[class_]['1st_level']
+            framework.spells['1st_level'] = spell_data.spell_list[class_]['1st_level']
         case 'sorcerer':
             t.select_spells(framework, 4, 'cantrips')
             t.select_spells(framework, 2, '1st_level')
@@ -627,7 +632,7 @@ def assign_spellcasting_mods(framework):
 
 def assign_ability_mods(framework):
     """Assign ability modifers"""
-    for ability in cd.ability_list:
+    for ability in core_data.ability_list:
         framework.abilities[ability]['modifier'] = floor((framework.abilities[ability]['score'] - 10) / 2)
 
 
@@ -655,20 +660,20 @@ def assign_skill_mods(framework):
 
 def assign_save_mods(framework):
     """Assign saving throw modifiers"""
-    for ability in cd.ability_list:
+    for ability in core_data.ability_list:
         framework.abilities[ability]['saving_throw']['modifier'] += framework.abilities[ability]['modifier']
 
 
 def assign_save_prof(framework):
     """Add proficiency bonus to saving throws"""
-    for ability in cd.ability_list:
+    for ability in core_data.ability_list:
         if framework.abilities[ability]['saving_throw']['proficient'] == True:
             framework.abilities[ability]['saving_throw']['modifier'] += framework.character['stats']['proficiency_bonus']
 
 
 def assign_skill_prof(framework):
     """Add proficiency bonus to skill points"""
-    for skill in cd.skill_list:
+    for skill in core_data.skill_list:
         if framework.skills[skill]['proficient'] == True:
             framework.skills[skill]['modifier'] += framework.character['stats']['proficiency_bonus']
 
