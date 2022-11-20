@@ -9,8 +9,8 @@ from random import choice, randint, randrange
 import func.tools as t
 
 
-# Assign stats based on priority by class
 def assign_stats(framework):
+    """Assign stats based on priority by class"""
     class_ = framework.character['bio']['class']
     stats = roll_stats()
     temp_abils = deepcopy(cd.ability_list)
@@ -101,8 +101,8 @@ def assign_stats(framework):
             return 'assign_stats: invalid class input'
 
 
-# Assign various properties based on race input
 def assign_race_mods(framework):
+    """Assign various properties based on race input"""
     race = framework.character['bio']['race']
     temp_abils = deepcopy(cd.ability_list)
     temp_langs = deepcopy(cd.languages)
@@ -200,8 +200,8 @@ def assign_race_mods(framework):
             return 'assign_race_mods: invalid race input'
 
 
-# Assign subrace properties
 def assign_subrace_mods(framework):
+    """Assign subrace properties"""
     if len(cd.subraces[framework.character['bio']['race']]) != 0:
         subrace = cd.subraces[framework.character['bio']['race']][0]
         framework.character['bio']['subrace'] = subrace
@@ -227,8 +227,8 @@ def assign_subrace_mods(framework):
         framework.character['bio']['subrace'] = None
 
 
-# Assign various modifiers based on class
 def assign_class_mods(framework):
+    """Assign various modifiers based on class"""
     class_ = framework.character['bio']['class']
     temp_tools = deepcopy(ed.tools)
 
@@ -370,8 +370,8 @@ def assign_class_mods(framework):
             return 'assign_class_mods: invalid class input'
 
 
-# Assign background mods, this is completely random for SRD compliance
 def assign_bg_mods(framework):
+    """Assign background mods, this is completely random for SRD compliance"""
     temp_skills = deepcopy(cd.skill_list)
     temp_tools = deepcopy(ed.tools)
     temp_langs = deepcopy(cd.languages)
@@ -408,8 +408,8 @@ def assign_bg_mods(framework):
     framework.inventory['gold'] += randrange(5, 26, 5)
 
 
-# Assign equipment based on character class
 def assign_equipment(framework):
+    """Assign equipment based on character class"""
     class_ = framework.character['bio']['class']
     temp_weapons_melee_simple = deepcopy(ed.weapons['melee']['simple'])
     temp_weapons_ranged_simple = deepcopy(ed.weapons['ranged']['simple'])
@@ -574,8 +574,8 @@ def assign_equipment(framework):
             return 'assign_equipment: invalid class input'
 
 
-# Assign spells
 def assign_spells(framework):
+    """Assign spells based on character class"""
     class_ = framework.character['bio']['class']
 
     match class_:
@@ -603,8 +603,8 @@ def assign_spells(framework):
             return 'assign_spells: invalid class input'
 
 
-# Assign spellcasting ability, DC, and spell attack modifier
 def assign_spellcasting_mods(framework):
+    """Assign spellcasting ability, DC, and spell attack modifier"""
     class_ = framework.character['bio']['class']
     prof_bonus = framework.character['stats']['proficiency_bonus']
 
@@ -625,14 +625,14 @@ def assign_spellcasting_mods(framework):
             return 'assign_spellcasting_mods: invalid class input'
 
 
-# Assign ability modifers
 def assign_ability_mods(framework):
+    """Assign ability modifers"""
     for ability in cd.ability_list:
         framework.abilities[ability]['modifier'] = floor((framework.abilities[ability]['score'] - 10) / 2)
 
 
-# Assign skill modifiers
 def assign_skill_mods(framework):
+    """Assign skill modifiers"""
     framework.skills['acrobatics']['modifier'] += framework.abilities['dexterity']['modifier']
     framework.skills['animal_handling']['modifier'] += framework.abilities['wisdom']['modifier']
     framework.skills['arcana']['modifier'] += framework.abilities['intelligence']['modifier']
@@ -653,34 +653,34 @@ def assign_skill_mods(framework):
     framework.skills['survival']['modifier'] += framework.abilities['wisdom']['modifier']
 
 
-# Assign saving throw modifiers
 def assign_save_mods(framework):
+    """Assign saving throw modifiers"""
     for ability in cd.ability_list:
         framework.abilities[ability]['saving_throw']['modifier'] += framework.abilities[ability]['modifier']
 
 
-# Add proficiency bonus to saving throws
 def assign_save_prof(framework):
+    """Add proficiency bonus to saving throws"""
     for ability in cd.ability_list:
         if framework.abilities[ability]['saving_throw']['proficient'] == True:
             framework.abilities[ability]['saving_throw']['modifier'] += framework.character['stats']['proficiency_bonus']
 
 
-# Add proficiency bonus to skill points
 def assign_skill_prof(framework):
+    """Add proficiency bonus to skill points"""
     for skill in cd.skill_list:
         if framework.skills[skill]['proficient'] == True:
             framework.skills[skill]['modifier'] += framework.character['stats']['proficiency_bonus']
 
 
-# Assign starting hit points
 def assign_hp(framework):
+    """Assign starting hit points"""
     hit_dice = int(framework.character['stats']['hit_dice'].strip('d'))
     framework.character['stats']['hit_points'] = hit_dice + framework.abilities['constitution']['modifier']
 
 
-# Add armor class
 def assign_armor_class(framework):
+    """Add armor class"""
     armor = framework.inventory['armor']
     dex_mod = framework.abilities['dexterity']['modifier']
 
@@ -721,8 +721,8 @@ def assign_armor_class(framework):
             framework.character['stats']['armor_class'] = 18
 
 
-# Add class specific armor resilience
 def assign_unarmored_defense(framework):
+    """Add class specific armor resilience"""
     class_ = framework.character['bio']['class']
 
     match class_:
@@ -740,18 +740,18 @@ def assign_unarmored_defense(framework):
                 framework.character['stats']['armor_class'] = framework.character['stats']['unarmored_defense']
 
 
-# Add initiative bonus
 def assign_initiative(framework):
+    """Add initiative bonus"""
     framework.character['stats']['initiative'] = framework.abilities['dexterity']['modifier']
 
 
-# Add passive perception
 def assign_passive_perception(framework):
+    """Add passive perception"""
     framework.character['stats']['passive_perception'] += framework.abilities['wisdom']['modifier']
 
 
-# Assign bodily attributes based on race input
 def assign_body_mods(framework):
+    """Assign bodily attributes based on race input"""
     race = framework.character['bio']['race']
     base_height = 0
     base_weight = 0
@@ -819,8 +819,8 @@ def assign_body_mods(framework):
     t.body_gen(framework, base_height, base_weight, height_mod, weight_mod)
 
 
-# Assign age based on race input
 def assign_age(framework):
+    """Assign age based on race input"""
     race = framework.character['bio']['race']
 
     match race:
