@@ -1,6 +1,5 @@
-# Class for storing and retrieving core data
 class CoreData():
-    # List of races
+    """Class for storing and retrieving core data"""
     races = [
         'dragonborn',
         'dwarf',
@@ -13,7 +12,6 @@ class CoreData():
         'tiefling'
     ]
 
-    # Dict of subraces
     subraces = {
         'dragonborn': [],
         'dwarf': [
@@ -34,7 +32,6 @@ class CoreData():
         'tiefling': []
     }
 
-    # List of classes
     classes = [
         'barbarian',
         'bard',
@@ -50,7 +47,6 @@ class CoreData():
         'wizard'
     ]
 
-    # List of languages
     languages = [
         'abyssal',
         'celestial',
@@ -70,7 +66,6 @@ class CoreData():
         'undercommon'
     ]
 
-    # Dict of alignments
     alignments = {
         'lawful': [
             'lawful good',
@@ -110,7 +105,6 @@ class CoreData():
         ]
     }
 
-    # List of abilities for reference
     ability_list = [
         'strength',
         'dexterity',
@@ -120,7 +114,6 @@ class CoreData():
         'charisma'
     ]
 
-    # List of skills for reference
     skill_list = [
         'acrobatics',
         'animal_handling',
@@ -142,7 +135,6 @@ class CoreData():
         'survival'
     ]
 
-    # Dict of skills grouped by class, used for assigning proficiency
     skill_prof_dict = {
         'all': [
             'acrobatics',

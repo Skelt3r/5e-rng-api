@@ -1,6 +1,5 @@
-# Class for storing and retrieving spell data
 class SpellData():
-    # Dict of spell lists, sorted by class and spell level
+    """Class for storing and retrieving spell data"""
     spell_list = {
         'bard': {
             'cantrips': [

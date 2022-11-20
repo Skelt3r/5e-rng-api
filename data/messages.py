@@ -49,8 +49,9 @@ invalid_dice_type = {
     'status': 400
 }
 
-# Format a valid dice roller response, else raise an error
+
 def format_dice_roll(input, num_rolls, num_sides, result, mod):
+    """Format a valid dice roller response, else raise an error"""
     if num_rolls == 1 and mod == 0:
         return {'input': {'raw': input, 'num_rolls': num_rolls, 'dice_type': f'd{num_sides}'},
                 'result': result}

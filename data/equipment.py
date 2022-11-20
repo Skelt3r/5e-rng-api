@@ -1,6 +1,5 @@
-# Class for storing and retrieving equipment data
 class EquipmentData():
-    # Dict of armor
+    """Class for storing and retrieving equipment data"""
     armor = {
         'light': [
             'padded',
@@ -22,7 +21,6 @@ class EquipmentData():
         ]
     }
 
-    # Dict of weapon names grouped by type/class
     weapons = {
         'melee': {
             'simple': [
@@ -75,7 +73,6 @@ class EquipmentData():
         }
     }
 
-    # List of tool sets
     tools = [
         "alchemist's supplies",
         "brewer's supplies",
@@ -96,13 +93,11 @@ class EquipmentData():
         "woodcarver's tools"
     ]
 
-    # List of gaming sets
     gaming_sets = [
         'dice set',
         'playing card set'
     ]
 
-    # List of musical instruments
     instruments = [
         'bagpipes',
         'drum',
@@ -116,7 +111,6 @@ class EquipmentData():
         'viol'
     ]
 
-    # Dict of starting equipment
     equipment_packs = {
         'burglar': [
             'backpack',
