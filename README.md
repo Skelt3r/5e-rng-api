@@ -2,15 +2,37 @@
 
 With the elimination of free Heroku dynos, this API is no longer publicly available. However, it still runs perfectly fine in a local environment.
 
-The API currently supports the following GET requests:  
+The API currently supports the following GET requests...
 - `/roll/XdX` - Roll the dice! This endpoint currently supports a range of (1-100)d(2-100).
 - `/generate/stats` - Randomly generate a set of 5e DND ability scores.
-- `/generate/pc` - Randomly generate a 5e DND player character.
+- `/generate/character` - Randomly generate a 5e DND player character.
+
+...as well as a POST request for character generation:
+```py
+from requests import post
+from rich import print
+
+headers = {
+    'Content-Type': 'application/json'
+}
+
+body = {
+    'name': 'Green Bean',
+    'race': 'elf',
+    'class': 'ranger',
+    'gender': 'male',
+    'alignment': 'neutral'
+}
+
+req = post('http://127.0.0.1:5000/generate/character', data=body).json()
+
+print(req)
+```
 
 Feature ideas:
 - Implement descriptions for features/traits, spells, items, etc.
+- Expand custom character generation
 - Generate characters beyond level 1
-- Custom character generation with the option to define certain parameters in a PUT/POST request
 - NPC generation
 
 This API was heavily inspired by the [DND 5e API](https://www.dnd5eapi.co/). Check them out!
