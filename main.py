@@ -8,13 +8,6 @@ from flask_restful import Api, Resource, reqparse
 app = Flask(__name__)
 api = Api(app)
 
-parser = reqparse.RequestParser(trim=True)
-parser.add_argument('name', location='form', type=str)
-parser.add_argument('race', location='form', type=str)
-parser.add_argument('class', location='form', type=str)
-parser.add_argument('gender', location='form', type=str)
-parser.add_argument('alignment', location='form', type=str)
-
 
 class Welcome(Resource):
     """Return a default response if no endpoint is passed"""
@@ -40,10 +33,17 @@ class Generate(Resource):
             return character_gen(random=True)
         else:
             return invalid_input, 400
+
+    parser = reqparse.RequestParser(trim=True)
+    parser.add_argument('name', location='form', type=str)
+    parser.add_argument('race', location='form', type=str)
+    parser.add_argument('class', location='form', type=str)
+    parser.add_argument('gender', location='form', type=str)
+    parser.add_argument('alignment', location='form', type=str)
     
     def post(self, input):
         if input == 'character':
-            args = parser.parse_args()
+            args = self.parser.parse_args()
             return character_gen(False, args['name'], args['race'], args['class'], args['gender'], args['alignment']), 201
         else:
             return invalid_input, 400
