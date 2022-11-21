@@ -3,6 +3,7 @@ class Framework:
     def __init__(self):
         self.character = {
             'bio': {
+                'name': '',
                 'race': '',
                 'subrace': '',
                 'class': '',
