@@ -1,4 +1,4 @@
-from copy import copy
+from copy import deepcopy
 from data.core import CoreData
 from data.equipment import EquipmentData
 from data.spells import SpellData
@@ -18,7 +18,7 @@ def assign_stats(framework):
     """Assign stats based on priority by class"""
     class_ = framework.character['bio']['class']
     stats = roll_stats()
-    temp_abils = copy(core_data.ability_list)
+    temp_abils = deepcopy(core_data.ability_list)
 
     match class_:
         case 'barbarian':
@@ -109,9 +109,9 @@ def assign_stats(framework):
 def assign_race_mods(framework):
     """Assign various properties based on race input"""
     race = framework.character['bio']['race']
-    temp_abils = copy(core_data.ability_list)
-    temp_langs = copy(core_data.languages)
-    temp_skills = copy(core_data.skill_list)
+    temp_abils = deepcopy(core_data.ability_list)
+    temp_langs = deepcopy(core_data.languages)
+    temp_skills = deepcopy(core_data.skill_list)
     
     match race:
         case 'dragonborn':
@@ -235,12 +235,12 @@ def assign_subrace_mods(framework):
 def assign_class_mods(framework):
     """Assign various modifiers based on class"""
     class_ = framework.character['bio']['class']
-    temp_tools = copy(eq_data.tools)
+    temp_tools = deepcopy(eq_data.tools)
 
     if class_ == 'bard':
-        profs = copy(core_data.skill_prof_dict['all'])
+        profs = deepcopy(core_data.skill_prof_dict['all'])
     else:
-        profs = copy(core_data.skill_prof_dict[class_])
+        profs = deepcopy(core_data.skill_prof_dict[class_])
 
     match class_:
         case 'barbarian':
@@ -377,9 +377,9 @@ def assign_class_mods(framework):
 
 def assign_bg_mods(framework):
     """Assign background mods, this is completely random for SRD compliance"""
-    temp_skills = copy(core_data.skill_list)
-    temp_tools = copy(eq_data.tools)
-    temp_langs = copy(core_data.languages)
+    temp_skills = deepcopy(core_data.skill_list)
+    temp_tools = deepcopy(eq_data.tools)
+    temp_langs = deepcopy(core_data.languages)
 
     for skill in temp_skills:
         if framework.skills[skill]['proficient'] == True:
@@ -416,8 +416,8 @@ def assign_bg_mods(framework):
 def assign_equipment(framework):
     """Assign equipment based on character class"""
     class_ = framework.character['bio']['class']
-    temp_weapons_melee_simple = copy(eq_data.weapons['melee']['simple'])
-    temp_weapons_ranged_simple = copy(eq_data.weapons['ranged']['simple'])
+    temp_weapons_melee_simple = deepcopy(eq_data.weapons['melee']['simple'])
+    temp_weapons_ranged_simple = deepcopy(eq_data.weapons['ranged']['simple'])
 
     match class_:
         case 'barbarian':

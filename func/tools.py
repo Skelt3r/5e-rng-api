@@ -1,4 +1,4 @@
-from copy import copy
+from copy import deepcopy
 from data.core import CoreData
 from data.equipment import EquipmentData
 from data.spells import SpellData
@@ -97,7 +97,7 @@ def randomize_stats(framework, stats, temp_abils, start, stop):
 def select_instruments(framework, num_inst):
     """Assign instrument proficiencies"""
     count = num_inst
-    temp_instruments = copy(eq_data.instruments)
+    temp_instruments = deepcopy(eq_data.instruments)
     while count > 0:
         inst = choice(temp_instruments)
         if inst in framework.proficiencies['instruments']:
@@ -110,7 +110,7 @@ def select_instruments(framework, num_inst):
 
 def splice_weapons(framework):
     """Remove already owned weapons from temp list"""
-    temp_weapons = copy(eq_data.weapons)
+    temp_weapons = deepcopy(eq_data.weapons)
     simple_melee_weapons = temp_weapons['melee']['simple']
     martial_melee_weapons = temp_weapons['melee']['martial']
     simple_ranged_weapons = temp_weapons['ranged']['simple']
@@ -175,7 +175,7 @@ def sort_all(framework):
 
 def splice_languages(framework):
     """Remove all known languages from the parent list"""
-    temp_langs = copy(core_data.languages)
+    temp_langs = deepcopy(core_data.languages)
     for known_lang in framework.proficiencies['languages']:
         for lang in temp_langs:
             if known_lang == lang:
@@ -211,7 +211,7 @@ def select_profs(framework, profs, num_profs):
 def splice_spells(framework, spell_level):
     """Remove all known spells from the parent list"""
     class_ = framework.character['bio']['class']
-    temp_spells = copy(spell_data.spell_list[class_][spell_level])
+    temp_spells = deepcopy(spell_data.spell_list[class_][spell_level])
     for spell in framework.spells[spell_level]:
         if spell in temp_spells:
             temp_spells.remove(spell)
