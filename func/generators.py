@@ -6,7 +6,7 @@ from .tools import choose_alignment, remove_inherent_dupes, sort_all
 import func.modifiers as m
 
 
-def compile_character(framework):
+def compile_character(framework:Framework):
     """Returns a JSON serializable character dictionary"""
     return {
         'character': {
@@ -21,14 +21,25 @@ def compile_character(framework):
     }
 
 
-def random_character_gen():
+def character_gen(random:bool, name:str='', race:str='', class_:str='', gender:str='', alignment:str=''):
     """Generate a random character"""
     data = CoreData()
     framework = Framework()
-    framework.character['bio']['race'] = choice(data.races)
-    framework.character['bio']['class'] = choice(data.classes)
-    framework.character['bio']['gender'] = choice(['male', 'female'])
-    framework.character['bio']['alignment'] = choose_alignment(framework.character['bio']['race'])
+
+    if random:
+        framework.character['bio']['race'] = choice(data.races)
+        framework.character['bio']['class'] = choice(data.classes)
+        framework.character['bio']['gender'] = choice(['male', 'female'])
+        framework.character['bio']['alignment'] = choose_alignment(framework.character['bio']['race'])
+    else:
+        assert race in data.races
+        assert class_ in data.classes
+        assert alignment in data.alignments
+        framework.character['bio']['name'] = name
+        framework.character['bio']['race'] = race.lower()
+        framework.character['bio']['class'] = class_.lower()
+        framework.character['bio']['gender'] = gender.lower()
+        framework.character['bio']['alignment'] = alignment.lower()
 
     m.assign_stats(framework)
     m.assign_race_mods(framework)
