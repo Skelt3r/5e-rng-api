@@ -44,7 +44,7 @@ print(req)
 req = get('http://127.0.0.1:5000/generate/character').json()
 print(req)
 ```
-...as well as a POST request for character generation:
+...as well as a POST request for customized character generation:
 ```py
 from requests import post
 from rich import print
